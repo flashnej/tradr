@@ -28,7 +28,7 @@ const SearchStockContainer = (props) => {
     })
     .then((response) => response.json())
     .then((body) => {
-      setPrice(body);
+      setPrice(`$${body}`);
     })
     .catch((error) => console.error(`Error in fetch: ${error.message}`));
 };

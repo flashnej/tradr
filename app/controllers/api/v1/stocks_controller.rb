@@ -6,6 +6,7 @@ class Api::V1::StocksController < ApplicationController
     def show
       symbol = params[:id]
       secret_key = ENV["api_key"]
+      date = Time.new.strftime("%Y-%m-%d")
 
 
       url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=#{symbol}&apikey=#{secret_key}"
@@ -13,7 +14,7 @@ class Api::V1::StocksController < ApplicationController
       parsed_response = JSON.parse(api_response.body)
 
 
-      render json: parsed_response["Time Series (Daily)"]["2020-05-04"]["4. close"]
+      render json: parsed_response["Time Series (Daily)"][date]["4. close"]
     end
 
 
