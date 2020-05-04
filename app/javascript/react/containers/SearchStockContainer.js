@@ -3,10 +3,12 @@ import { Redirect } from "react-router-dom";
 import _ from "lodash";
 
 import ErrorList from "../components/ErrorList.js";
+import ShareTile from "../components/ShareTile"
 
 const SearchStockContainer = (props) => {
   const [errors, setErrors] = useState({})
   const [symbol, setSymbol] = useState("")
+  const [company, setCompany] = useState("")
   const [price, setPrice] = useState()
 
 
@@ -16,7 +18,7 @@ const SearchStockContainer = (props) => {
 
   const onSubmit = (event) => {
     event.preventDefault()
-    fetch(`/api/v1/stocks/${symbol}`)
+    fetch(`/api/v1/search_stocks/${symbol}`)
     .then((response) => {
       if (response.ok) {
         return response;
@@ -29,9 +31,15 @@ const SearchStockContainer = (props) => {
     .then((response) => response.json())
     .then((body) => {
       setPrice(`$${body}`);
+      setCompany(symbol)
     })
     .catch((error) => console.error(`Error in fetch: ${error.message}`));
 };
+
+const follow = (event) => {
+  event.preventDefault()
+
+}
 
   return (
     <div>
@@ -50,7 +58,11 @@ const SearchStockContainer = (props) => {
 
       <input className="button" type="submit" value="Submit" />
     </form>
-    {price}
+      <ShareTile
+        company={company}
+        price={price}
+        follow={follow}
+      />
     </div>
   )
 }

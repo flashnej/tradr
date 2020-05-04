@@ -1,6 +1,6 @@
 require 'faraday'
 
-class Api::V1::StocksController < ApplicationController
+class Api::V1::SearchStocksController < ApplicationController
     protect_from_forgery unless: -> { request.format.json? }
 
     def show
@@ -16,9 +16,4 @@ class Api::V1::StocksController < ApplicationController
 
       render json: parsed_response["Time Series (Daily)"][date]["4. close"]
     end
-
-
-    # private
-    #
-    # av_api_key = "Z27SSUFZ4XXQKYV6"
 end
