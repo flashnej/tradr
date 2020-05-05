@@ -1,7 +1,16 @@
 import React from 'react'
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+
+import SearchStockContainer from "../containers/SearchStockContainer";
 
 export const App = (props) => {
-  return (<h1>Make It So React</h1>)
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={SearchStockContainer} />
+      </Switch>
+    </BrowserRouter>
+  );
 }
 
 export default App
