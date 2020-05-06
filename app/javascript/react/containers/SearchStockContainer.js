@@ -64,6 +64,7 @@ const SearchStockContainer = (props) => {
     })
     .then((response) => response.json())
     .then((body) => {
+      <Redirect to='/' />
     })
     .catch((error) => console.error(`Error in fetch: ${error.message}`));
   }

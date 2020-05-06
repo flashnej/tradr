@@ -17,6 +17,8 @@ class Api::V1::SearchStocksController < ApplicationController
 
       if parsed_response["Error Message"]
         render json: parsed_response
+      elsif parsed_response["Note"]
+        render json: parsed_response
       else
         render json: parsed_response["Time Series (Daily)"][date]["4. close"]
       end
