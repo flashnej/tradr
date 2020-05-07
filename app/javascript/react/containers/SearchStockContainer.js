@@ -32,6 +32,9 @@ const SearchStockContainer = (props) => {
     .then((body) => {
       if (body["Error Message"]) {
         setErrors("Company not found!")
+      } else if (body["Note"]){
+        setErrors("Server time out, please wait a minute and refresh the page")
+
       } else {
         setPrice(`$${body}`);
         setCompany(symbol)
@@ -64,6 +67,11 @@ const SearchStockContainer = (props) => {
     })
     .then((response) => response.json())
     .then((body) => {
+      if (body["error"]) {
+        setErrors(body["error"])
+      } else {
+        <Redirect to='/' />
+      }
     })
     .catch((error) => console.error(`Error in fetch: ${error.message}`));
   }
@@ -71,7 +79,7 @@ const SearchStockContainer = (props) => {
   return (
     <div>
       <h4> What company are you looking for? </h4>
-      <ErrorList errors={errors} />
+      <p> {errors} </p>
       <form onSubmit={onSubmit}>
         <label>
         Symbol:
