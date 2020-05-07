@@ -20,7 +20,6 @@ const SearchStockContainer = (props) => {
     event.preventDefault()
     fetch(`/api/v1/search_stocks/${symbol}`)
     .then((response) => {
-      debugger
       if (response.ok) {
         return response;
       } else {

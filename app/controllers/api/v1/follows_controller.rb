@@ -1,7 +1,6 @@
 require 'faraday'
 
 class Api::V1::FollowsController < ApplicationController
-    before_action :authenticate_user!, only: [:index, :create, :show]
 
     def index
       user = current_user
