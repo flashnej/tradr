@@ -22,7 +22,7 @@ class Api::V1::FollowsController < ApplicationController
 
     def show
       symbol = params[:id]
-      secret_key = ENV["api_key"]
+      secret_key = ENV["av_api_key"]
 
       url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=#{symbol}&apikey=#{secret_key}"
       api_response = Faraday.get(url)
