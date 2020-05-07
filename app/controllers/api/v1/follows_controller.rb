@@ -1,7 +1,7 @@
 require 'faraday'
 
 class Api::V1::FollowsController < ApplicationController
-    protect_from_forgery unless: -> { request.format.json? }
+    before_action :authenticate_user!, only: [:index, :create, :show]
 
     def index
       user = current_user
@@ -9,21 +9,26 @@ class Api::V1::FollowsController < ApplicationController
     end
 
     def create
-      follow = Follow.new(user: current_user, symbol: params["symbol"])
-      if follow.save
-        render json: {follow: follow}
+      if current_user.follows.length >= 5
+        render json: {error: "You are already following 5 companies"}
       else
-        render json: { follow: follow.errors.full_messages }, sttus: :unprocessable_entity
+        follow = Follow.new(user: current_user, symbol: params["symbol"])
+        if follow.save
+          render json: {follow: follow}
+        else
+          render json: { follow: follow.errors.full_messages }, sttus: :unprocessable_entity
+        end
       end
     end
 
     def show
       symbol = params[:id]
       secret_key = ENV["api_key"]
-      date = Time.new-86400
+      date = Time.new
+      if date.hour < 9
+        date = date.day - 1
+      end
       date = date.strftime("%Y-%m-%d")
-
-      # need to write a conditional that determins if makets are open or closed
 
       url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=#{symbol}&apikey=#{secret_key}"
       api_response = Faraday.get(url)

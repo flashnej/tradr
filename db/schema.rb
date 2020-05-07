@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 2020_05_04_210327) do
     t.string "symbol", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["symbol"], name: "index_follows_on_symbol", unique: true
     t.index ["user_id"], name: "index_follows_on_user_id"
   end
 
