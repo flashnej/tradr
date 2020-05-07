@@ -23,11 +23,6 @@ class Api::V1::FollowsController < ApplicationController
     def show
       symbol = params[:id]
       secret_key = ENV["api_key"]
-      date = Time.new
-      if date.hour < 9
-        date = date.day - 1
-      end
-      date = date.strftime("%Y-%m-%d")
 
       url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=#{symbol}&apikey=#{secret_key}"
       api_response = Faraday.get(url)
@@ -41,4 +36,11 @@ class Api::V1::FollowsController < ApplicationController
         render json: parsed_response["Time Series (Daily)"]
       end
     end
+
+    def destroy
+      follow = Follow.find(params["id"])
+      follow.destroy
+      render json: {}, status: :no_content
+    end
+
 end

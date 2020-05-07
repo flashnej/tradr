@@ -10,6 +10,7 @@ const SearchStockContainer = (props) => {
   const [symbol, setSymbol] = useState("")
   const [company, setCompany] = useState("")
   const [price, setPrice] = useState()
+  const [redirect, setRedirect] = useState(false)
 
 
   const handleChange = (event) => {
@@ -70,10 +71,14 @@ const SearchStockContainer = (props) => {
       if (body["error"]) {
         setErrors(body["error"])
       } else {
-        <Redirect to='/' />
+        setRedirect(true)
       }
     })
     .catch((error) => console.error(`Error in fetch: ${error.message}`));
+  }
+
+  if (redirect) {
+    return <Redirect to='/' />
   }
 
   return (
