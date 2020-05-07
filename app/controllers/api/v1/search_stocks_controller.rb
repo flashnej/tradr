@@ -3,24 +3,14 @@ require 'faraday'
 class Api::V1::SearchStocksController < ApplicationController
 
     def show
+      fin_key=ENV["fin_api_key"]
       symbol = params[:id]
-      secret_key = ENV["api_key"]
-      date = Time.new
-      if date.hour < 9
-        date = date.day - 1
-      end
-      date = date.strftime("%Y-%m-%d")
-
-      url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=#{symbol}&apikey=#{secret_key}"
-      api_response = Faraday.get(url)
-      parsed_response = JSON.parse(api_response.body)
-
-      if parsed_response["Error Message"]
-        render json: parsed_response
-      elsif parsed_response["Note"]
-        render json: parsed_response
+      api_response = Faraday.get("https://finnhub.io/api/v1/quote?symbol=#{symbol}&token=#{fin_key}")
+      if api_response.body == "Symbol not supported"
+        render json: {"error": "Company not found"}
       else
-        render json: parsed_response["Time Series (Daily)"][date]["4. close"]
+        parsed_response = JSON.parse(api_response.body)
+        render json: parsed_response["c"]
       end
     end
 end
