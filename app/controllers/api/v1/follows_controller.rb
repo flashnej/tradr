@@ -4,7 +4,11 @@ class Api::V1::FollowsController < ApplicationController
 
     def index
       user = current_user
-      render json: user.follows
+
+      render json: {
+        follows: serialized_data(user.follows, FollowSerializer),
+        balance: user.balance,
+      }
     end
 
     def create
@@ -41,6 +45,12 @@ class Api::V1::FollowsController < ApplicationController
       follow = Follow.find(params["id"])
       follow.destroy
       render json: {}, status: :no_content
+    end
+
+    private
+
+    def serialized_data(data, serializer)
+      ActiveModelSerializers::SerializableResource.new(data, each_serializer: serializer, scope: current_user)
     end
 
 end
