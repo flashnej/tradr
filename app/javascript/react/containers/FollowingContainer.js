@@ -42,6 +42,7 @@ const FollowingContainer = (props) => {
                 company={company["symbol"]}
                 id={company["id"]}
                 fetchFollows={fetchFollows}
+                errorTrigger={errorTrigger}
                 />
     })
   }

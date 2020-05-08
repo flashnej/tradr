@@ -31,16 +31,13 @@ const SearchStockContainer = (props) => {
     })
     .then((response) => response.json())
     .then((body) => {
-      if (body["Error Message"]) {
-        setErrors("Company not found!")
-      } else if (body["Note"]){
-        setErrors("Server time out, please wait a minute and refresh the page")
-
+      if (body.error) {
+        setErrors(body.error)
       } else {
         setPrice(`$${body}`);
         setCompany(symbol)
         setErrors("")
-      }
+    }
     })
     .catch((error) => console.error(`Error in fetch: ${error.message}`));
   };

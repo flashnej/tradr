@@ -22,7 +22,7 @@ const PerformanceTile = (props) => {
       .then((response) => response.json())
       .then((body) => {
         if (body["Note"]) {
-          errorTrigger()
+          props.errorTrigger()
         } else {
           setPriceHistory(body);
         }
