@@ -6,6 +6,7 @@ import PerformanceTile from "../components/PerformanceTile"
 
 const FollowingContainer = (props) => {
   const [portfolioCompanies, setPortfolioCompanies] = useState([])
+  const [accountBalance, setAccountBalance] = useState()
   const [errors, setErrors] = useState("")
 
   useEffect(() => {
@@ -25,7 +26,8 @@ const FollowingContainer = (props) => {
     })
     .then((response) => response.json())
     .then((body) => {
-      setPortfolioCompanies(body);
+      setPortfolioCompanies(body.follows);
+      setAccountBalance(body.balance);
     })
     .catch((error) => console.error(`Error in fetch: ${error.message}`));
   }
@@ -49,7 +51,8 @@ const FollowingContainer = (props) => {
 
   return (
     <div>
-    <p> {errors} </p>
+      <p> {errors} </p>
+      <p> Your account balance is ${accountBalance}</p>
       {portfolio}
       <Link to="/search"> Follow Additional Companies</Link>
     </div>

@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   validates :user_name, presence: true, uniqueness: true
+  validates :balance, presence: true
 
   has_many :follows
   # Include default devise modules. Others available are:

@@ -45,7 +45,7 @@ const PerformanceTile = (props) => {
             data={data}
             options={{}}
             graph_id="LineChart"
-            width="100%"
+            width="90%"
             height="400px"
           />
     )}
@@ -74,12 +74,14 @@ const PerformanceTile = (props) => {
     }
 
     return (
-      <div className={'my-pretty-chart-container'}>
-        <div className="row">
-          <div className="columns small-6"><h2>{props.company}'s Recent Performance</h2></div>
-          <div className="columns small-6"><button type="button" className="alert button" onClick={unfollow}>Delete</button></div>
+      <div className="grid-container">
+        <div className={'my-pretty-chart-container'}>
+          <div className="grid-margin-x grid-x">
+            <div className="columns cell small-6"><h2>{props.company}'s Recent Performance</h2></div>
+            <div className="columns cell small-6"><button type="button" className="alert button delete" onClick={unfollow}>Delete</button></div>
+            {chart}
           </div>
-        {chart}
+        </div>
       </div>
     );
 };
