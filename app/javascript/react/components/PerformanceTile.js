@@ -39,7 +39,6 @@ const PerformanceTile = (props) => {
     })
     data.reverse()
     data.unshift(["date", "price"])
-    debugger
     chart = (
           <Chart
             chartType="LineChart"
