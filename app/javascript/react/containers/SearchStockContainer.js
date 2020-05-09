@@ -11,10 +11,15 @@ const SearchStockContainer = (props) => {
   const [company, setCompany] = useState("")
   const [price, setPrice] = useState()
   const [redirect, setRedirect] = useState(false)
+  const [quantity, setQuantity] = useState()
 
 
   const handleChange = (event) => {
-    setSymbol(event.currentTarget.value)
+    if (event.currentTarget.id =="symbol") {
+      setSymbol(event.currentTarget.value)
+    } else if (event.currentTarget.id =="quantity") {
+      setQuantity(event.currentTarget.value)
+    }
   };
 
   const onSubmit = (event) => {
@@ -74,6 +79,38 @@ const SearchStockContainer = (props) => {
     .catch((error) => console.error(`Error in fetch: ${error.message}`));
   }
 
+    const buy = (event) => {
+      event.preventDefault()
+      fetch("/api/v1/buys", {
+        credentials: "same-origin",
+        method: "POST",
+        body: JSON.stringify({symbol: company, quantity: quantity, price: price}),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      })
+      .then((response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          response.json().then((body) => setErrors(body.error));
+          let errorMessage = `${response.status} (${response.statusText})`;
+          let error = new Error(errorMessage);
+          throw error;
+        }
+      })
+      .then((response) => response.json())
+      .then((body) => {
+        if (body["error"]) {
+          setErrors(body["error"])
+        } else {
+          setRedirect(true)
+        }
+      })
+      .catch((error) => console.error(`Error in fetch: ${error.message}`));
+    }
+
   if (redirect) {
     return <Redirect to='/' />
   }
@@ -99,6 +136,9 @@ const SearchStockContainer = (props) => {
         company={company}
         price={price}
         follow={follow}
+        handleChange={handleChange}
+        quantity={quantity}
+        buy={buy}
       />
     </div>
   )

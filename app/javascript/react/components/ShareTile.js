@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const ShareTile = (props) => {
 
@@ -11,12 +11,32 @@ const ShareTile = (props) => {
     followButton = <> </>
   }
 
+  let purchaseForm = <> </>;
+  if (props.price) {
+    purchaseForm = <form onSubmit={props.buy}>
+    <label>Quantity:
+      <select id="quantity" value={props.quantity} onChange={props.handleChange}>
+        <option value=""></option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </label>
+      <input className="button" type="submit" value="Execute Buy" />
+    </form>
+  } else {
+    purchaseForm = <> </>
+  }
+
     return (
         <div>
             <p> {props.company}</p>
             <p> {props.price} </p>
 
             {followButton}
+            {purchaseForm}
         </div>
     );
 };
