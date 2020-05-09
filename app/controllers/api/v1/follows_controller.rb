@@ -4,7 +4,15 @@ class Api::V1::FollowsController < ApplicationController
 
     def index
       user = current_user
-
+      # data = []
+      # user.follows.each do |follow|
+      #   data << request(follow)
+      # end
+      # render json: {
+      #   follows: serialized_data(user.follows, FollowSerializer),
+      #   data: data,
+      #   balance: user.balance,
+      # }
       render json: {
         follows: serialized_data(user.follows, FollowSerializer),
         balance: user.balance,
@@ -31,7 +39,6 @@ class Api::V1::FollowsController < ApplicationController
       url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=#{symbol}&apikey=#{secret_key}"
       api_response = Faraday.get(url)
       parsed_response = JSON.parse(api_response.body)
-
       if parsed_response["Error Message"]
         render json: parsed_response
       elsif parsed_response["Note"]
