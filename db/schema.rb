@@ -10,20 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_08_202005) do
+ActiveRecord::Schema.define(version: 2020_05_09_170132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "buys", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "symbol", null: false
-    t.float "buy_price", null: false
-    t.integer "quantity", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_buys_on_user_id"
-  end
 
   create_table "follows", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -31,6 +21,17 @@ ActiveRecord::Schema.define(version: 2020_05_08_202005) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_follows_on_user_id"
+  end
+
+  create_table "trades", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "symbol", null: false
+    t.float "buy_price", null: false
+    t.integer "quantity", null: false
+    t.float "sell_price", default: 0.0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_trades_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

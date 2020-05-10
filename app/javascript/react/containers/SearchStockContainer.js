@@ -12,7 +12,25 @@ const SearchStockContainer = (props) => {
   const [price, setPrice] = useState()
   const [redirect, setRedirect] = useState(false)
   const [quantity, setQuantity] = useState()
+  const [accountBalance, setAccountBalance] = useState("")
 
+  useEffect(() => {
+    fetch(`/api/v1/follows`)
+    .then((response) => {
+      if (response.ok) {
+        return response;
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`;
+        let error = new Error(errorMessage);
+        throw error;
+      }
+    })
+    .then((response) => response.json())
+    .then((body) => {
+      setAccountBalance(body.balance.toFixed(2));
+    })
+    .catch((error) => console.error(`Error in fetch: ${error.message}`));
+  }, []);
 
   const handleChange = (event) => {
     if (event.currentTarget.id =="symbol") {
@@ -81,10 +99,10 @@ const SearchStockContainer = (props) => {
 
     const buy = (event) => {
       event.preventDefault()
-      fetch("/api/v1/buys", {
+      fetch("/api/v1/trades", {
         credentials: "same-origin",
         method: "POST",
-        body: JSON.stringify({symbol: company, quantity: quantity, price: price}),
+        body: JSON.stringify({symbol: company, quantity: quantity, buy_price: price}),
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json"
@@ -117,6 +135,7 @@ const SearchStockContainer = (props) => {
 
   return (
     <div>
+      <h4>Current Balance: ${accountBalance} </h4>
       <h4> What company are you looking for? </h4>
       <p> {errors} </p>
       <form onSubmit={onSubmit}>
