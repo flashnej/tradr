@@ -79,16 +79,21 @@ const FollowingContainer = (props) => {
                 id={company["id"]}
                 buyPrice={company["buy_price"]}
                 quantity={company["quantity"]}
-
+                fetchTrades={fetchTrades}
+                fetchFollows={fetchFollows}
                 />
     })
   }
 
   return (
-    <div>
+    <div className="grid-container">
       <p> {errors} </p>
       <p> Your account balance is ${accountBalance}</p>
+      <h4> Shares Owned: </h4>
+      <div className="grid-margin-x grid-x">
       {tradeTiles}
+      </div>
+      <h4> Companies Followed: </h4>
       {followTiles}
       <Link to="/search"> Follow Additional Companies</Link>
     </div>

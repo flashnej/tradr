@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :search_stocks, only: [:show]
       resources :follows, only: [:index, :create, :show, :destroy]
-      resources :trades, only: [:index, :create, :edit]
+      resources :trades, only: [:index, :create, :update]
     end
   end
 end

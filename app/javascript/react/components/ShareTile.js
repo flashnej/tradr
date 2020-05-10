@@ -24,7 +24,7 @@ const ShareTile = (props) => {
         <option value="5">5</option>
       </select>
     </label>
-      <input className="button" type="submit" value="Execute Buy" />
+      <input className="button buy" type="submit" value="Execute Buy" />
     </form>
   } else {
     purchaseForm = <> </>

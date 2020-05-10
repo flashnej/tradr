@@ -21,7 +21,12 @@ class Api::V1::TradesController < ApplicationController
     end
   end
 
-  def credit
+  def update
+    trade = Trade.find(params["id"])
+    quantity = trade.quantity.to_f
+    sell_price = params["sell_price"][1..-1].to_f
+    trade.update(sell_price: sell_price, quantity: 0)
+    current_user.update(balance: current_user.balance + (sell_price * quantity))
   end
 
 end
