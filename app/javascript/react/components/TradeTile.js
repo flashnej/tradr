@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 const TradeTile = (props) => {
   const [price, setPrice] = useState()
 
+  const quantity = props.quantity
+
   const company = props.company
   useEffect(() => {
     fetch(`/api/v1/search_stocks/${company}`)
@@ -26,11 +28,20 @@ const TradeTile = (props) => {
     .catch((error) => console.error(`Error in fetch: ${error.message}`));
   }, []);
 
+  let sellOptions=[]
+  for (let i = 1; i <= quantity; i++) {
+    sellOptions.push(<option key={i} value={i}>{i}</option>);
+  }
+  let sellQuantity = 1
+  const updateSellQuantity= (event) => {
+    sellQuantity = event.target.value
+  }
+
   const sell = (event) => {
     event.preventDefault()
     fetch(`/api/v1/trades/${event.target.id}`, {
       method: "PATCH",
-      body: JSON.stringify({sell_price: price}),
+      body: JSON.stringify({sell_price: price, quantity: sellQuantity}),
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
@@ -50,15 +61,20 @@ const TradeTile = (props) => {
   }
 
   let share = "share"
-  if (props.quantity > 1) {
+  if (quantity > 1) {
     share = "shares"
   }
 
   let tile
-  if (props.quantity !== 0) {
+  if (quantity !== 0) {
     tile =  <div className="tradeTile columns cell small-3">
-              <p>Purchased {props.quantity} {share} of {props.company} for: ${props.buyPrice}</p>
+              <p>Purchased {quantity} {share} of {props.company} for: ${props.buyPrice}</p>
               <p>Sell for {price} per share?</p>
+              <label>Quantity:
+                <select id="quantity" onChange={updateSellQuantity} className="sell-dropdown">
+                  {sellOptions}
+                </select>
+              </label>
               <input className="button" type="submit" id={props.id} value="Sell" onClick={sell} />
             </div>
   } else {
