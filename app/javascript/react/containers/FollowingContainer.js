@@ -58,7 +58,9 @@ const FollowingContainer = (props) => {
   }
 
   let followTiles
+  let followOverview
   if (follows.length !== 0){
+    followOverview=="Companies Followed: "
     followTiles = follows.map((company) => {
       return <PerformanceTile
                 key={company["id"]}
@@ -71,7 +73,9 @@ const FollowingContainer = (props) => {
   }
 
   let tradeTiles
+  let tradeOverview
   if (trades.length !== 0){
+    tradeOverview ="Shares Owned:"
     tradeTiles = trades.map((company) => {
       return <TradeTile
                 key={company["id"]}
@@ -89,11 +93,11 @@ const FollowingContainer = (props) => {
     <div className="grid-container">
       <p> {errors} </p>
       <p> Your account balance is ${accountBalance}</p>
-      <h4> Shares Owned: </h4>
+      <h4> {tradeOverview} </h4>
       <div className="grid-margin-x grid-x">
       {tradeTiles}
       </div>
-      <h4> Companies Followed: </h4>
+      <h4>{followOverview}</h4>
       {followTiles}
       <Link to="/search"> Follow Additional Companies</Link>
     </div>
