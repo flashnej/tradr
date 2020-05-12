@@ -4,6 +4,7 @@ const TradeTile = (props) => {
   const [sellQuantity, setSellQuantity] = useState(1)
 
   const quantity = props.quantity
+
   const company = props.company
 
   let share = "share"
