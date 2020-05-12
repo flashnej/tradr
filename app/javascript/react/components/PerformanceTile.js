@@ -8,7 +8,7 @@ const PerformanceTile = (props) => {
             chartType="LineChart"
             data={props.data}
             options={{}}
-            graph_id="LineChart"
+            graphId={props.id}
             width="90%"
             height="400px"
           />

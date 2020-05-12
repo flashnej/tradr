@@ -40,7 +40,7 @@ class Api::V1::TradesController < ApplicationController
   def update
     trade = Trade.find(params["id"])
     quantity = params["quantity"].to_i
-    sell_price = params["sell_price"][1..-1].to_f
+    sell_price = params["sell_price"]
     trade.update(sell_price: sell_price, quantity: (trade.quantity - quantity))
     current_user.update(balance: current_user.balance + (sell_price * quantity))
   end

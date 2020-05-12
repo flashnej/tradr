@@ -30,46 +30,13 @@ const TradeContainer = (props) => {
     })
     .catch((error) => console.error(`Error in fetch: ${error.message}`));
   }
-  debugger
   const errorTrigger = (event) => {
     setErrors("Server time out, please wait a minute and refresh the page")
   }
 
-  const sell = (event) => {
-    event.preventDefault()
-    debugger
-    fetch(`/api/v1/trades/${event.target.id}`, {
-      method: "PATCH",
-      body: JSON.stringify({sell_price: props.sellPrice, quantity: sellQuantity}),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    })
-    .then((response) => {
-      if (response.ok) {
-        props.fetchTrades();
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`;
-        let error = new Error(errorMessage);
-        throw error;
-      }
-    })
-    .catch((error) => console.error(`Error in fetch: ${error.message}`));
-  }
-
-  let sellQuantity = 1
-  const updateSellQuantity= (event) => {
-    sellQuantity = event.target.value
-  }
-
-  const setSellPrice = (price) => {
-    let sellPrice = price
-  }
-
   let tradeTiles
   let tradeOverview
-  // if (trades.length !== 0){
+  if (trades.length !== 0){
     tradeOverview ="Shares Owned:"
     tradeTiles = trades.map((company) => {
       return <TradeTile
@@ -80,12 +47,9 @@ const TradeContainer = (props) => {
                 quantity={company[0]["quantity"]}
                 fetchTrades={fetchTrades}
                 sellPrice={company[1]}
-                sell={sell}
-                updateSellQuantity={updateSellQuantity}
-                setSellPrice={setSellPrice}
                 />
     })
-  // }
+  }
 
   return (
     <div>
