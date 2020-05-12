@@ -87,7 +87,10 @@ const FollowContainer = (props) => {
 
   return (
     <div>
-    <Link to="/search"> Explore Additional Companies</Link>
+    <div className="nav-bar">
+      <Link to="/trade"> Trades</Link>
+      <Link to="/search"> Search</Link>
+    </div>
     <h3>Account Balance: ${accountBalance}</h3>
     {followTiles}
     </div>

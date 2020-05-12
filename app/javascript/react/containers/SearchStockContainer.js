@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import _ from "lodash";
 
 import ErrorList from "../components/ErrorList.js";
@@ -135,6 +135,10 @@ const SearchStockContainer = (props) => {
 
   return (
     <div>
+    <div className="nav-bar">
+      <Link to="/trade"> Trades</Link>
+      <Link to="/follow"> Follows</Link>
+    </div>
       <h4>Current Balance: ${accountBalance} </h4>
       <h4> What company are you looking for? </h4>
       <p> {errors} </p>

@@ -53,8 +53,11 @@ const TradeContainer = (props) => {
 
   return (
     <div>
-    <Link to="/search"> Explore Additional Companies</Link>
-    <h3>Account Balance: ${accountBalance}</h3>
+      <div className="nav-bar">
+        <Link to="/follow"> Follows</Link>
+        <Link to="/search"> Search</Link>
+      </div>
+      <h3>Account Balance: ${accountBalance}</h3>
       {tradeTiles}
     </div>
   )
