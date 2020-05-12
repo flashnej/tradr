@@ -1,8 +1,24 @@
+require 'faraday'
+
 class Api::V1::TradesController < ApplicationController
 
   def index
-    user = current_user
-    render json: user.trades
+    fin_key=ENV["fin_api_key"]
+    balance = current_user.balance
+    trades = current_user.trades
+    current_trades = []
+    trades.each do |trade|
+      if trade.quantity > 0
+        symbol = trade.symbol
+        api_response = Faraday.get("https://finnhub.io/api/v1/quote?symbol=#{symbol}&token=#{fin_key}")
+        parsed_response = JSON.parse(api_response.body)
+        current_trades << [trade, parsed_response["c"]]
+      end
+    end
+    render json: {
+      balance: balance,
+      trades: current_trades
+    }
   end
 
   def create
@@ -23,9 +39,9 @@ class Api::V1::TradesController < ApplicationController
 
   def update
     trade = Trade.find(params["id"])
-    quantity = trade.quantity.to_f
+    quantity = params["quantity"].to_i
     sell_price = params["sell_price"][1..-1].to_f
-    trade.update(sell_price: sell_price, quantity: 0)
+    trade.update(sell_price: sell_price, quantity: (trade.quantity - quantity))
     current_user.update(balance: current_user.balance + (sell_price * quantity))
   end
 

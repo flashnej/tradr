@@ -10,6 +10,7 @@ const FollowingContainer = (props) => {
   const [accountBalance, setAccountBalance] = useState()
   const [errors, setErrors] = useState("")
   const [trades, setTrades] = useState([])
+  const [portfolioValue, setPortfolioValue] = useState(0)
 
   useEffect(() => {
     fetchFollows()
@@ -73,6 +74,10 @@ const FollowingContainer = (props) => {
   }
 
   let tradeTiles
+  let portfolioPerformanceArray =[]
+  const updatePortfolioValue = (quantity, value) => {
+    setPortfolioValue(portfolioValue + (quantity * value))
+  }
   let tradeOverview
   if (trades.length !== 0){
     tradeOverview ="Shares Owned:"
@@ -85,14 +90,17 @@ const FollowingContainer = (props) => {
                 quantity={company["quantity"]}
                 fetchTrades={fetchTrades}
                 fetchFollows={fetchFollows}
+                updatePortfolioValue={updatePortfolioValue}
                 />
     })
   }
+
 
   return (
     <div className="grid-container">
       <p> {errors} </p>
       <p> Your account balance is ${accountBalance}</p>
+      <p> Your portfolio value is ${portfolioValue}</p>
       <h4> {tradeOverview} </h4>
       <div className="grid-margin-x grid-x">
       {tradeTiles}

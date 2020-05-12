@@ -3,18 +3,19 @@ require 'faraday'
 class Api::V1::FollowsController < ApplicationController
 
     def index
+      secret_key = ENV["av_api_key"]
       user = current_user
-      # data = []
-      # user.follows.each do |follow|
-      #   data << request(follow)
-      # end
-      # render json: {
-      #   follows: serialized_data(user.follows, FollowSerializer),
-      #   data: data,
-      #   balance: user.balance,
-      # }
+      data = []
+      user.follows.each do |follow|
+        symbol = follow.symbol
+        url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=#{symbol}&apikey=#{secret_key}"
+        api_response = Faraday.get(url)
+        parsed_response = JSON.parse(api_response.body)
+        data << [follow.id, symbol, parsed_response]
+      end
+
       render json: {
-        follows: serialized_data(user.follows, FollowSerializer),
+        data: data,
         balance: user.balance,
       }
     end
@@ -32,21 +33,21 @@ class Api::V1::FollowsController < ApplicationController
       end
     end
 
-    def show
-      symbol = params[:id]
-      secret_key = ENV["av_api_key"]
-
-      url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=#{symbol}&apikey=#{secret_key}"
-      api_response = Faraday.get(url)
-      parsed_response = JSON.parse(api_response.body)
-      if parsed_response["Error Message"]
-        render json: parsed_response
-      elsif parsed_response["Note"]
-        render json: parsed_response
-      else
-        render json: parsed_response["Time Series (Daily)"]
-      end
-    end
+    # def show
+    #   symbol = params[:id]
+    #   secret_key = ENV["av_api_key"]
+    #
+    #   url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=#{symbol}&apikey=#{secret_key}"
+    #   api_response = Faraday.get(url)
+    #   parsed_response = JSON.parse(api_response.body)
+    #   if parsed_response["Error Message"]
+    #     render json: parsed_response
+    #   elsif parsed_response["Note"]
+    #     render json: parsed_response
+    #   else
+    #     render json: parsed_response["Time Series (Daily)"]
+    #   end
+    # end
 
     def destroy
       follow = Follow.find(params["id"])
