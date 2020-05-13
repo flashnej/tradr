@@ -4,8 +4,9 @@ const TradeTile = (props) => {
   const [sellQuantity, setSellQuantity] = useState(1)
 
   const quantity = props.quantity
-
   const company = props.company
+  const sellPrice = (Math.round(props.sellPrice * 100) / 100).toFixed(2)
+  const buyPrice = (Math.round(props.buyPrice * 100) / 100).toFixed(2)
 
   let share = "share"
   if (quantity > 1) {
@@ -45,8 +46,8 @@ const TradeTile = (props) => {
 
   return (
     <div className="tradeTile columns cell small-3">
-      <p>Purchased {quantity} {share} of {props.company} for: ${props.buyPrice}</p>
-      <p>Sell for {props.sellPrice} per share?</p>
+      <p>Purchased {quantity} {share} of {props.company} for: ${buyPrice}</p>
+      <p>Sell for ${sellPrice} per share?</p>
       <form id={props.id} onSubmit={sell}>
         <label>Quantity:
           <select id="quantity" onChange={updateSellQuantity} className="sell-dropdown">

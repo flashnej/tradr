@@ -5,7 +5,7 @@ const ShareTile = (props) => {
   let followButton = <> </>;
   if (props.price) {
     followButton = <form onSubmit={props.follow}>
-      <input className="button" type="submit" value="Follow Company" />
+      <input className="button" type="submit" value= "Follow" />
     </form>
   } else {
     followButton = <> </>
@@ -15,7 +15,7 @@ const ShareTile = (props) => {
   if (props.price) {
     purchaseForm = <form onSubmit={props.buy}>
     <label>Quantity:
-      <select id="quantity" value={props.quantity} onChange={props.handleChange}>
+      <select className="buyQuantity" id="quantity" value={props.quantity} onChange={props.handleChange}>
         <option value=""></option>
         <option value="1">1</option>
         <option value="2">2</option>
@@ -23,8 +23,8 @@ const ShareTile = (props) => {
         <option value="4">4</option>
         <option value="5">5</option>
       </select>
-    </label>
       <input className="button buy" type="submit" value="Execute Buy" />
+    </label>
     </form>
   } else {
     purchaseForm = <> </>

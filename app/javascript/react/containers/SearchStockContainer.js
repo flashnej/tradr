@@ -10,9 +10,10 @@ const SearchStockContainer = (props) => {
   const [symbol, setSymbol] = useState("")
   const [company, setCompany] = useState("")
   const [price, setPrice] = useState()
-  const [redirect, setRedirect] = useState(false)
   const [quantity, setQuantity] = useState()
   const [accountBalance, setAccountBalance] = useState("")
+  const [followRedirect, setFollowRedirect] = useState(false)
+  const [buyRedirect, setBuyRedirect] = useState(false)
 
   useEffect(() => {
     fetch(`/api/v1/follows`)
@@ -57,7 +58,7 @@ const SearchStockContainer = (props) => {
       if (body.error) {
         setErrors(body.error)
       } else {
-        setPrice(`$${body}`);
+        setPrice(`$${body.toFixed(2)}`);
         setCompany(symbol)
         setErrors("")
     }
@@ -91,7 +92,7 @@ const SearchStockContainer = (props) => {
       if (body["error"]) {
         setErrors(body["error"])
       } else {
-        setRedirect(true)
+        setFollowRedirect(true)
       }
     })
     .catch((error) => console.error(`Error in fetch: ${error.message}`));
@@ -123,26 +124,31 @@ const SearchStockContainer = (props) => {
         if (body["error"]) {
           setErrors(body["error"])
         } else {
-          setRedirect(true)
+          setBuyRedirect(true)
         }
       })
       .catch((error) => console.error(`Error in fetch: ${error.message}`));
     }
 
-  if (redirect) {
+  if (buyRedirect) {
     return <Redirect to='/' />
+  }
+
+  if (followRedirect) {
+    return <Redirect to='/follow' />
   }
 
   return (
     <div>
     <div className="nav-bar">
-      <Link to="/trade"> Trades</Link>
+      <Link to="/trade"> Trades</Link> /
       <Link to="/follow"> Follows</Link>
     </div>
+    <div className="searchPage">
       <h4>Current Balance: ${accountBalance} </h4>
       <h4> What company are you looking for? </h4>
       <p> {errors} </p>
-      <form onSubmit={onSubmit}>
+      <form className="searchStocks" onSubmit={onSubmit}>
         <label>
         Symbol:
         <input
@@ -163,6 +169,7 @@ const SearchStockContainer = (props) => {
         quantity={quantity}
         buy={buy}
       />
+      </div>
     </div>
   )
 }

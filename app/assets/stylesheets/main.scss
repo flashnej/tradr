@@ -1,6 +1,11 @@
 $green: #20BF55;
 $dark-gray: #2D2A32;
 
+.top-bar h1{
+  font-family: 'Ubuntu', sans-serif;
+  color: $green;
+}
+
 .top-bar a{
   color: $green;
 }
@@ -14,24 +19,18 @@ body {
   background-color: gray;
 }
 
-// .delete {
-//   float: right;
-// }
-
-.grid-container {
-
-}
-
 .tradeTile {
   background-color: white;
   margin: 10px;
   width: 300px;
   border: 1px solid black;
   border-radius: 5px;
+  text-indent: 5px;
 }
 
 .button {
   margin-left: 10px;
+  border-radius: 5px;
 }
 
 p {
@@ -52,3 +51,36 @@ p {
   width: 50%;
 }
 
+.nav-bar {
+  background-color: white;
+  text-indent: 10px;
+}
+
+.top-bar-section .right {
+  background-color: $dark-gray;
+  list-style: none;
+}
+.top-bar-section a {
+  color: white;
+}
+
+.searchStocks {
+  width: 50%;
+  align-items: center;
+}
+
+.searchPage {
+  margin: 10px;
+}
+
+.performanceTile {
+  margin-top: 15px;
+}
+
+.delete-button {
+  width: 100px;
+}
+
+.buyQuantity {
+  width: 20%;
+}
