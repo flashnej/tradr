@@ -145,8 +145,9 @@ const SearchStockContainer = (props) => {
       <Link to="/follow"> Follows</Link>
     </div>
     <div className="searchPage">
-      <h4>Current Balance: ${accountBalance} </h4>
-      <h4> What company are you looking for? </h4>
+    <div className="searchText">
+      <h4>Account Balance: ${accountBalance} </h4>
+      <h2> What company are you looking for? </h2>
       <p> {errors} </p>
       <form className="searchStocks" onSubmit={onSubmit}>
         <label>
@@ -169,6 +170,7 @@ const SearchStockContainer = (props) => {
         quantity={quantity}
         buy={buy}
       />
+      </div>
       </div>
     </div>
   )

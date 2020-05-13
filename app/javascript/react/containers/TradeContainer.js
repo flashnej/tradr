@@ -64,11 +64,13 @@ const TradeContainer = (props) => {
       </div>
       <div className="grid-container">
         <div className="gird-x grid-margin-x">
+        <div className="balances">
           <div className="columns cell small-6">
             <p>Account Balance: ${accountBalance}</p>
           </div>
           <div className="columns cell small-6">
             <p>Porfolio Balance: ${portfolioValue.toFixed(2)}</p>
+          </div>
           </div>
         </div>
         <div className="grid-x grid-margin-x">

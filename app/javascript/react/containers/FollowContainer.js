@@ -71,7 +71,7 @@ const FollowContainer = (props) => {
         return data.push([day, parseFloat(company[2]["Time Series (Daily)"][day]["4. close"])])
       })
       data.reverse()
-      data.unshift(["date", "price"])
+      data.unshift(["date", "Price"])
       return <PerformanceTile
                 key={company[0]}
                 company={company[1]}

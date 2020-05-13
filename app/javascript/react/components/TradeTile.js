@@ -45,7 +45,7 @@ const TradeTile = (props) => {
     }
 
   return (
-    <div className="tradeTile columns cell small-3">
+    <div className="tradeTile columns cell small-4">
       <p>Purchased {quantity} {share} of {props.company} for: ${buyPrice}</p>
       <p>Sell for ${sellPrice} per share?</p>
       <form id={props.id} onSubmit={sell}>

@@ -32,11 +32,12 @@ const ShareTile = (props) => {
 
     return (
         <div>
+          <div className="returnCompany">
             <p> {props.company}</p>
             <p> {props.price} </p>
-
-            {followButton}
-            {purchaseForm}
+          </div>
+          {followButton}
+          {purchaseForm}
         </div>
     );
 };
