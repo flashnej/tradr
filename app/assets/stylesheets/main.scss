@@ -1,25 +1,32 @@
 $green: #20BF55;
 $dark-gray: #2D2A32;
 
+.top-bar h1{
+  font-family: 'Ubuntu', sans-serif;
+  color: $green;
+}
+
 .top-bar a{
   color: $green;
 }
 
 .top-bar {
   background-color: $dark-gray;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
 }
 
 body {
-  margin: 10 px;
-  background-color: gray;
+  background-image: url("Stockmarket1.jpg");
+  background-attachment: fixed;
 }
 
-// .delete {
-//   float: right;
-// }
-
-.grid-container {
-
+.content {
+  font-family: 'Catamaran', sans-serif;
+  margin: 10px;
+  margin-top: 40px;
+  z-index: 2;
 }
 
 .tradeTile {
@@ -28,11 +35,24 @@ body {
   width: 300px;
   border: 1px solid black;
   border-radius: 5px;
+  text-indent: 5px;
+  font-family: 'Catamaran', sans-serif;
 }
 
 .button {
   margin-left: 10px;
+  border-radius: 5px;
+  background-color: $dark-gray;
 }
+
+.button:hover {
+  background-color: #817f84;
+}
+
+.button:focus {
+  background-color: #817f84;
+}
+
 
 p {
   margin: 5px;
@@ -40,6 +60,11 @@ p {
 
 .table-title {
   text-align: center;
+}
+
+.table-title h4 {
+  font-size: 40px;
+  font-family: 'Catamaran', sans-serif;
 }
 
 .sell-dropdown {
@@ -52,3 +77,102 @@ p {
   width: 50%;
 }
 
+.nav-bar {
+  background-color: white;
+  text-indent: 10px;
+  position: fixed;
+  width: 100%;
+  margin: -10px;
+  margin-top: -40px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  z-index: 1;
+}
+
+.top-bar-section .right {
+  background-color: $dark-gray;
+  list-style: none;
+}
+.top-bar-section a {
+  color: white;
+}
+
+.searchStocks {
+  width: 50%;
+  align-items: center;
+}
+
+.searchPage {
+  // margin: 10px;
+  background-color: white;
+  margin: auto;
+  width: 50%;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.searchPage h4 {
+  font-family: 'Catamaran', sans-serif;
+}
+
+.searchPage h2 {
+  font-family: 'Catamaran', sans-serif;
+}
+
+form {
+  display: inline-block;
+}
+
+.performanceTile {
+  margin-top: 15px;
+  background-color: white;
+  width: 70%;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.delete-button {
+  margin-top: 5px;
+  width: 100px;
+}
+
+.buyQuantity {
+  width: 20%;
+}
+
+.my-pretty-chart-container {
+  border-radius: 5px;
+  padding-bottom: 10px;
+}
+
+.balances {
+  font-family: 'Catamaran', sans-serif;
+  margin-left: 15px;
+  font-size: 30px;
+  background-color: rgba(88,191,86,.8);
+  width: 30%;
+  border-radius: 10px;
+}
+
+.searchText {
+  margin-left: 5px;
+  text-align: center;
+}
+
+.returnCompany {
+  font-size: 20px;
+}
+
+.authenticate {
+  font-family: 'Catamaran', sans-serif;
+  text-align: center;
+  background-color: white;
+  margin: auto;
+  width: 50%;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.authenticate h2 {
+  font-family: 'Catamaran', sans-serif;
+}

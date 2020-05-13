@@ -34,6 +34,11 @@ const TradeContainer = (props) => {
     setErrors("Server time out, please wait a minute and refresh the page")
   }
 
+  let portfolioValue = 0
+  trades.forEach((company) => {
+    portfolioValue = portfolioValue + (Number(company[1]) * Number(company[0].quantity))
+  })
+
   let tradeTiles
   let tradeOverview
   if (trades.length !== 0){
@@ -54,11 +59,24 @@ const TradeContainer = (props) => {
   return (
     <div>
       <div className="nav-bar">
-        <Link to="/follow"> Follows</Link>
+        <Link to="/follow"> Follows</Link> /
         <Link to="/search"> Search</Link>
       </div>
-      <h3>Account Balance: ${accountBalance}</h3>
-      {tradeTiles}
+      <div className="grid-container">
+        <div className="gird-x grid-margin-x">
+        <div className="balances">
+          <div className="columns cell small-6">
+            <p>Account Balance: ${accountBalance}</p>
+          </div>
+          <div className="columns cell small-6">
+            <p>Porfolio Balance: ${portfolioValue.toFixed(2)}</p>
+          </div>
+          </div>
+        </div>
+        <div className="grid-x grid-margin-x">
+          {tradeTiles}
+        </div>
+      </div>
     </div>
   )
 }
