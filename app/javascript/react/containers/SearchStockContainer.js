@@ -16,7 +16,7 @@ const SearchStockContainer = (props) => {
   const [buyRedirect, setBuyRedirect] = useState(false)
 
   useEffect(() => {
-    fetch(`/api/v1/follows`)
+    fetch(`/api/v1/trades`)
     .then((response) => {
       if (response.ok) {
         return response;
@@ -28,7 +28,7 @@ const SearchStockContainer = (props) => {
     })
     .then((response) => response.json())
     .then((body) => {
-      setAccountBalance(body.balance.toFixed(2));
+      setAccountBalance(body["balance"].toFixed(2))
     })
     .catch((error) => console.error(`Error in fetch: ${error.message}`));
   }, []);
@@ -100,34 +100,39 @@ const SearchStockContainer = (props) => {
 
     const buy = (event) => {
       event.preventDefault()
-      fetch("/api/v1/trades", {
-        credentials: "same-origin",
-        method: "POST",
-        body: JSON.stringify({symbol: company, quantity: quantity, buy_price: price}),
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        }
-      })
-      .then((response) => {
-        if (response.ok) {
-          return response;
-        } else {
-          response.json().then((body) => setErrors(body.error));
-          let errorMessage = `${response.status} (${response.statusText})`;
-          let error = new Error(errorMessage);
-          throw error;
-        }
-      })
-      .then((response) => response.json())
-      .then((body) => {
-        if (body["error"]) {
-          setErrors(body["error"])
-        } else {
-          setBuyRedirect(true)
-        }
-      })
-      .catch((error) => console.error(`Error in fetch: ${error.message}`));
+      if (quantity == null) {
+        setErrors("Please select how many you would like to purchase")
+      } else {
+        setErrors("")
+        fetch("/api/v1/trades", {
+          credentials: "same-origin",
+          method: "POST",
+          body: JSON.stringify({symbol: company, quantity: quantity, buy_price: price}),
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          }
+        })
+        .then((response) => {
+          if (response.ok) {
+            return response;
+          } else {
+            response.json().then((body) => setErrors(body.error));
+            let errorMessage = `${response.status} (${response.statusText})`;
+            let error = new Error(errorMessage);
+            throw error;
+          }
+        })
+        .then((response) => response.json())
+        .then((body) => {
+          if (body["error"]) {
+            setErrors(body["error"])
+          } else {
+            setBuyRedirect(true)
+          }
+        })
+        .catch((error) => console.error(`Error in fetch: ${error.message}`));
+      }
     }
 
   if (buyRedirect) {
