@@ -30,6 +30,7 @@ const TradeContainer = (props) => {
     })
     .catch((error) => console.error(`Error in fetch: ${error.message}`));
   }
+
   const errorTrigger = (event) => {
     setErrors("Server time out, please wait a minute and refresh the page")
   }
