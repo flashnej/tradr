@@ -78,7 +78,7 @@ p {
 }
 
 .nav-bar {
-  background-color: white;
+  background-color: #c0bfc1;
   text-indent: 10px;
   position: fixed;
   width: 100%;
@@ -166,13 +166,36 @@ form {
 .authenticate {
   font-family: 'Catamaran', sans-serif;
   text-align: center;
-  background-color: white;
   margin: auto;
-  width: 50%;
-  border: 1px solid black;
+  width: 35%;
   padding: 10px;
 }
 
+.authenticate a {
+  text-align: left;
+}
+
 .authenticate h2 {
-  font-family: 'Catamaran', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
+  background-color: $dark-gray;
+  color: $green;
+  margin: 0px;
+  width: 100%;
+}
+
+.authenticate-body {
+  background-color: white;
+  text-align: center;
+}
+
+.actions {
+  width: 100%;
+}
+
+.not-active a {
+  color: #333333;
+}
+
+.active {
+  font-size: 20px;
 }
