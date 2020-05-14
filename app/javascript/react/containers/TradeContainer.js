@@ -59,8 +59,9 @@ const TradeContainer = (props) => {
   return (
     <div>
       <div className="nav-bar">
-        <Link to="/follow"> Follows</Link> /
-        <Link to="/search"> Search</Link>
+        <span className="active">Trades</span> /
+        <span className="not-active"><Link to="/follow"> Follows </Link></span>/
+        <span className="not-active"><Link to="/search"> Search</Link></span>
       </div>
       <div className="grid-container">
         <div className="gird-x grid-margin-x">

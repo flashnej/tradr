@@ -88,8 +88,9 @@ const FollowContainer = (props) => {
   return (
     <div>
       <div className="nav-bar">
-        <Link to="/trade"> Trades</Link> /
-        <Link to="/search"> Search</Link>
+        <span className="not-active"><Link to="/trade">Trades </Link></span>/
+        <span className="active">Follows</span>/
+        <span className="not-active"><Link to="/search"> Search</Link></span>
       </div>
       <div>
         {followTiles}

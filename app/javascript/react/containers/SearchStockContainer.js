@@ -141,8 +141,9 @@ const SearchStockContainer = (props) => {
   return (
     <div>
     <div className="nav-bar">
-      <Link to="/trade"> Trades</Link> /
-      <Link to="/follow"> Follows</Link>
+      <span className="not-active"><Link to="/trade">Trades </Link></span>/
+      <span className="not-active"><Link to="/follow"> Follows </Link></span>/
+      <span className="active"> Search</span>
     </div>
     <div className="searchPage">
     <div className="searchText">
