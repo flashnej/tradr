@@ -168,7 +168,7 @@ form {
   font-family: 'Catamaran', sans-serif;
   text-align: center;
   margin: auto;
-  width: 35%;
+  width: 70%;
   padding: 10px;
 }
 
@@ -185,6 +185,31 @@ form {
 }
 
 .authenticate-body {
+  background-color: white;
+  text-align: center;
+}
+
+.signin {
+  font-family: 'Catamaran', sans-serif;
+  text-align: center;
+  margin: auto;
+  width: 35%;
+  padding: 10px;
+}
+
+.signin a {
+  text-align: left;
+}
+
+.signin h2 {
+  font-family: 'Ubuntu', sans-serif;
+  background-color: $dark-gray;
+  color: $green;
+  margin: 0px;
+  width: 100%;
+}
+
+.signin-body {
   background-color: white;
   text-align: center;
 }
@@ -208,4 +233,34 @@ form {
   margin: auto;
   width: 35%;
   font-family: 'Ubuntu', sans-serif;
+}
+
+.column {
+  float: left;
+  width: 50%;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.appdescription {
+  width: 70%;
+  margin: auto;
+  text-align: center;
+  background-color: white;
+}
+
+.appdescription h5 {
+  background-color: #c0bfc1;
+  margin-top: 0px;
+}
+
+.appdescription h2 {
+  font-family: 'Ubuntu', sans-serif;
+  background-color: $dark-gray;
+  color: $green;
+  margin-bottom: 0px;
 }
