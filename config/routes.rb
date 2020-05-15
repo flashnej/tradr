@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get '/trade', to: 'static_pages#index'
   get '/follow', to: 'static_pages#index'
   get '/home', to: 'static_pages#index'
+  get '/gameover', to: 'static_pages#index'
 
   namespace :api do
     namespace :v1 do

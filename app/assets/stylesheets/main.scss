@@ -200,3 +200,12 @@ form {
 .active {
   font-size: 20px;
 }
+
+.gameover {
+  background-color: $dark-gray;
+  color: $green;
+  text-align: center;
+  margin: auto;
+  width: 35%;
+  font-family: 'Ubuntu', sans-serif;
+}

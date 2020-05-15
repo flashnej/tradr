@@ -7,6 +7,7 @@ const TradeContainer = (props) => {
   const [accountBalance, setAccountBalance] = useState()
   const [errors, setErrors] = useState("")
   const [trades, setTrades] = useState([])
+  const [gameOver, setGameOver] =useState(false)
 
   useEffect(() => {
     fetchTrades()
@@ -27,6 +28,7 @@ const TradeContainer = (props) => {
     .then((body) => {
       setTrades(body["trades"]);
       setAccountBalance(body["balance"].toFixed(2))
+      setGameOver(body["gameOver"])
     })
     .catch((error) => console.error(`Error in fetch: ${error.message}`));
   }
@@ -39,6 +41,10 @@ const TradeContainer = (props) => {
   trades.forEach((company) => {
     portfolioValue = portfolioValue + (Number(company[1]) * Number(company[0].quantity))
   })
+
+  if (gameOver) {
+    return <Redirect to='/gameover' />
+  }
 
   let tradeTiles
   let tradeOverview

@@ -7,6 +7,12 @@ class Api::V1::TradesController < ApplicationController
     balance = current_user.balance
     trades = current_user.trades
     current_trades = []
+    gameEnd = current_user.created_at + 2.months
+    if gameEnd < Time.now
+      gameOver = true
+    else
+      gameOver = false
+    end
     trades.each do |trade|
       if trade.quantity > 0
         symbol = trade.symbol
@@ -17,7 +23,8 @@ class Api::V1::TradesController < ApplicationController
     end
     render json: {
       balance: balance,
-      trades: current_trades
+      trades: current_trades,
+      gameOver: gameOver,
     }
   end
 

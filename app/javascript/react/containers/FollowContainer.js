@@ -6,6 +6,7 @@ import PerformanceTile from "../components/PerformanceTile"
 const FollowContainer = (props) => {
   const [follows, setFollows] = useState([])
   const [accountBalance, setAccountBalance] = useState()
+  const [gameOver, setGameOver] =useState(false)
 
   useEffect(() => {
     fetchFollows()
@@ -26,8 +27,13 @@ const FollowContainer = (props) => {
     .then((body) => {
       setFollows(body.data);
       setAccountBalance(body.balance.toFixed(2));
+      setGameOver(body.gameOver)
     })
     .catch((error) => console.error(`Error in fetch: ${error.message}`));
+  }
+
+  if (gameOver) {
+    return <Redirect to='/gameover' />
   }
 
   const unfollow = (event) => {
