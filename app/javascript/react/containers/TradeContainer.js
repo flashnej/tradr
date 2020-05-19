@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Redirect, Link } from "react-router-dom";
 
 import TradeTile from "../components/TradeTile"
+import PerformanceGraph from "../components/PerformanceGraph"
 
 const TradeContainer = (props) => {
   const [accountBalance, setAccountBalance] = useState()
   const [errors, setErrors] = useState("")
   const [trades, setTrades] = useState([])
-  const [gameOver, setGameOver] =useState(false)
+  const [values, setValues] = useState([])
 
   useEffect(() => {
     fetchTrades()
@@ -28,7 +29,7 @@ const TradeContainer = (props) => {
     .then((body) => {
       setTrades(body["trades"]);
       setAccountBalance(body["balance"].toFixed(2))
-      setGameOver(body["gameOver"])
+      setValues(body["values"])
     })
     .catch((error) => console.error(`Error in fetch: ${error.message}`));
   }
@@ -42,8 +43,17 @@ const TradeContainer = (props) => {
     portfolioValue = portfolioValue + (Number(company[1]) * Number(company[0].quantity))
   })
 
-  if (gameOver) {
-    return <Redirect to='/gameover' />
+  let performanceGraph
+  if (values.length !== 0) {
+    let data = [["time", "value"]]
+    values.forEach((value) => {
+      data.push([value.created_at, value.value])
+    })
+    performanceGraph = <PerformanceGraph
+                            key = "performanceGraph"
+                            data = {data}
+                            id = {1}
+                            />
   }
 
   let tradeTiles
@@ -75,6 +85,7 @@ const TradeContainer = (props) => {
             <p>Account Balance: ${accountBalance}</p>
             <p>Porfolio Balance: ${portfolioValue.toFixed(2)}</p>
           </div>
+          {performanceGraph}
         <div className="grid-x grid-margin-x">
           {tradeTiles}
         </div>

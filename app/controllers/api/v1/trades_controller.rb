@@ -6,25 +6,18 @@ class Api::V1::TradesController < ApplicationController
     fin_key=ENV["fin_api_key"]
     balance = current_user.balance
     trades = current_user.trades
+    values = current_user.values
     current_trades = []
-    gameEnd = current_user.created_at + 2.months
-    if gameEnd < Time.now
-      gameOver = true
-    else
-      gameOver = false
-    end
     trades.each do |trade|
-      if trade.quantity > 0
-        symbol = trade.symbol
-        api_response = Faraday.get("https://finnhub.io/api/v1/quote?symbol=#{symbol}&token=#{fin_key}")
-        parsed_response = JSON.parse(api_response.body)
-        current_trades << [trade, parsed_response["c"]]
-      end
+      symbol = trade.symbol
+      api_response = Faraday.get("https://finnhub.io/api/v1/quote?symbol=#{symbol}&token=#{fin_key}")
+      parsed_response = JSON.parse(api_response.body)
+      current_trades << [trade, parsed_response["c"]]
     end
     render json: {
       balance: balance,
       trades: current_trades,
-      gameOver: gameOver,
+      values: values
     }
   end
 
@@ -50,6 +43,9 @@ class Api::V1::TradesController < ApplicationController
     sell_price = params["sell_price"]
     trade.update(sell_price: sell_price, quantity: (trade.quantity - quantity))
     current_user.update(balance: current_user.balance + (sell_price * quantity))
+    if trade.quantity = 0
+      trade.destroy
+    end
   end
 
 end

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Redirect, Link } from "react-router-dom";
 
-import PerformanceTile from "../components/PerformanceTile"
+import FollowGraph from "../components/FollowGraph"
 
 const FollowContainer = (props) => {
   const [follows, setFollows] = useState([])
   const [accountBalance, setAccountBalance] = useState()
-  const [gameOver, setGameOver] =useState(false)
 
   useEffect(() => {
     fetchFollows()
@@ -27,14 +26,10 @@ const FollowContainer = (props) => {
     .then((body) => {
       setFollows(body.data);
       setAccountBalance(body.balance.toFixed(2));
-      setGameOver(body.gameOver)
     })
     .catch((error) => console.error(`Error in fetch: ${error.message}`));
   }
 
-  if (gameOver) {
-    return <Redirect to='/gameover' />
-  }
 
   const unfollow = (event) => {
     event.preventDefault()
@@ -64,9 +59,7 @@ const FollowContainer = (props) => {
   }
 
   let followTiles
-  let followOverview
   if (follows.length !== 0){
-    followOverview=="Companies Followed: "
     followTiles = follows.map((company) => {
       if (company[2]["Note"]) {
         return <h6 key={company[0]} className="callout alert"> This chart could not render due to a server timeout, please wait a minute and try again. </h6>
@@ -78,13 +71,11 @@ const FollowContainer = (props) => {
       })
       data.reverse()
       data.unshift(["date", "Price"])
-      return <PerformanceTile
+      return <FollowGraph
                 key={company[0]}
                 company={company[1]}
                 id={company[0]}
                 data={data}
-                fetchFollows={fetchFollows}
-                errorTrigger={errorTrigger}
                 unfollow={unfollow}
                 />
       }
