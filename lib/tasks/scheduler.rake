@@ -11,7 +11,7 @@ task :update_feed => :environment do
   elsif range === time
     users = User.all
     users.each do |user|
-      value = 0
+      value = user.balance
       trades = user.trades
       trades.each do |trade|
         fin_key=ENV["fin_api_key"]
