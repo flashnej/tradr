@@ -4,6 +4,7 @@ class User < ApplicationRecord
 
   has_many :follows
   has_many :trades
+  has_many :values
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

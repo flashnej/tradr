@@ -122,7 +122,7 @@ form {
   display: inline-block;
 }
 
-.performanceTile {
+.followGraph {
   margin-top: 15px;
   background-color: white;
   width: 70%;
@@ -262,4 +262,10 @@ form {
   background-color: $dark-gray;
   color: $green;
   margin-bottom: 0px;
+}
+
+.performanceGraph {
+  background-color: white;
+  width: 40%;
+  border: 1px solid black;
 }

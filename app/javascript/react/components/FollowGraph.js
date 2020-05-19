@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Chart } from 'react-google-charts';
 
-const PerformanceTile = (props) => {
+const FollowGraph = (props) => {
 
     let chart = (
           <Chart
@@ -16,7 +16,7 @@ const PerformanceTile = (props) => {
     )
 
     return (
-      <div className="grid-container performanceTile">
+      <div className="grid-container followGraph">
         <div className={'my-pretty-chart-container'}>
           <div className="grid-margin-x grid-x">
             <div className="columns cell small-10 table-title"><h4>{props.company}'s Recent Performance</h4></div>
@@ -28,4 +28,4 @@ const PerformanceTile = (props) => {
     );
 };
 
-export default PerformanceTile;
+export default FollowGraph;

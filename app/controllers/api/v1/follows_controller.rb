@@ -6,12 +6,6 @@ class Api::V1::FollowsController < ApplicationController
       secret_key = ENV["av_api_key"]
       user = current_user
       data = []
-      gameEnd = current_user.created_at + 2.months
-      if gameEnd < Time.now
-        gameOver = true
-      else
-        gameOver = false
-      end
       user.follows.each do |follow|
         symbol = follow.symbol
         url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=#{symbol}&apikey=#{secret_key}"
@@ -23,7 +17,6 @@ class Api::V1::FollowsController < ApplicationController
       render json: {
         data: data,
         balance: user.balance,
-        gameOver: gameOver
       }
     end
 
