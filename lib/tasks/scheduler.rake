@@ -5,7 +5,7 @@ task :update_feed => :environment do
   puts "Updating feed..."
   today = Date.today
   time = Time.now
-  range = Range.new(Time.local(time.year, time.month, time.day, 5, 30), Time.local(time.year, time.month, time.day, 20))
+  range = Range.new(Time.local(time.year, time.month, time.day, 13, 30), Time.local(time.year, time.month, time.day, 20))
   if today.saturday? || today.sunday?
     puts "Markets are closed today."
   elsif range === time
