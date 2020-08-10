@@ -16,3 +16,4 @@ This application is built using:
 This application utilizes APIs from AlphaVantage and FinnHub:
   * https://www.alphavantage.co/documentation/
   * https://finnhub.io/docs/api
+
