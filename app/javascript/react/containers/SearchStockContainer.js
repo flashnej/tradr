@@ -154,7 +154,9 @@ const SearchStockContainer = (props) => {
     <div className="searchText">
       <h4>Account Balance: ${accountBalance} </h4>
       <h2> What company are you looking for? </h2>
+      <div className="searchErrors">
       <p> {errors} </p>
+      </div>
       <form className="searchStocks" onSubmit={onSubmit}>
         <label>
         Symbol:

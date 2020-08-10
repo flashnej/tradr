@@ -102,6 +102,10 @@ p {
   align-items: center;
 }
 
+.searchErrors {
+  color: red;
+}
+
 .searchPage {
   background-color: white;
   margin: auto;
@@ -136,7 +140,7 @@ form {
 }
 
 .buyQuantity {
-  width: 37%;
+  width: 50%;
 }
 
 .my-pretty-chart-container {
